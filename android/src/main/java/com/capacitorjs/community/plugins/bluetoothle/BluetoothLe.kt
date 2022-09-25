@@ -714,6 +714,15 @@ class BluetoothLe : Plugin() {
             })
     }
 
+    @PluginMethod
+    fun getMTU(call: PluginCall) {
+        val device = getDevice(call) ?: return
+        val mtu = device.getMTU()
+        val result = JSObject()
+        result.put("value", mtu)
+        call.resolve(result)
+    }
+
     private fun assertBluetoothAdapter(call: PluginCall): Boolean? {
         if (bluetoothAdapter == null) {
             call.reject("Bluetooth LE not initialized.")

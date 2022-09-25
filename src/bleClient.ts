@@ -268,6 +268,8 @@ export interface BleClientInterface {
    * @param characteristic UUID of the characteristic (see [UUID format](#uuid-format))
    */
   stopNotifications(deviceId: string, service: string, characteristic: string): Promise<void>;
+
+  getMTU(deviceId: string): Promise<number>;
 }
 
 class BleClientClass implements BleClientInterface {
@@ -630,6 +632,14 @@ class BleClientClass implements BleClientInterface {
         characteristic,
       });
     });
+  }
+
+  async getMTU(deviceId: string): Promise<number> {
+    const mtu = await this.queue(async () => {
+      const result = await BluetoothLe.getMTU({ deviceId });
+      return result.value;
+    });
+    return mtu;
   }
 
   private convertValue(value?: Data): DataView {

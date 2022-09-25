@@ -76,6 +76,7 @@ Below is an index of all the methods available.
 - [`writeDescriptor(...)`](#writedescriptor)
 - [`startNotifications(...)`](#startnotifications)
 - [`stopNotifications(...)`](#stopnotifications)
+- [`getMTU(...)`](#getmtu)
 - [Interfaces](#interfaces)
 - [Enums](#enums)
 
@@ -799,6 +800,20 @@ Stop listening to the changes of the value of a characteristic. For an example, 
 | **`deviceId`**       | <code>string</code> | The ID of the device to use (obtained from [requestDevice](#requestDevice) or [requestLEScan](#requestLEScan)) |
 | **`service`**        | <code>string</code> | UUID of the service (see [UUID format](#uuid-format))                                                          |
 | **`characteristic`** | <code>string</code> | UUID of the characteristic (see [UUID format](#uuid-format))                                                   |
+
+---
+
+### getMTU(...)
+
+```typescript
+getMTU(deviceId: string) => Promise<number>
+```
+
+| Param          | Type                |
+| -------------- | ------------------- |
+| **`deviceId`** | <code>string</code> |
+
+**Returns:** <code>Promise&lt;number&gt;</code>
 
 ---
 

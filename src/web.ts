@@ -23,6 +23,7 @@ import type {
   ScanResultInternal,
   WriteOptions,
   WriteDescriptorOptions,
+  NumberResult,
 } from './definitions';
 import { runWithTimeout } from './timeout';
 
@@ -337,6 +338,11 @@ export class BluetoothLeWeb extends WebPlugin implements BluetoothLePlugin {
     await characteristic?.stopNotifications();
   }
 
+  async getMTU(options: DeviceIdOptions): Promise<NumberResult> {
+    options = options;
+    return { value: -1 };
+  }
+
   private getFilters(options?: RequestBleDeviceOptions): BluetoothLEScanFilter[] {
     const filters: BluetoothLEScanFilter[] = [];
     for (const service of options?.services ?? []) {
@@ -368,7 +374,7 @@ export class BluetoothLeWeb extends WebPlugin implements BluetoothLePlugin {
       deviceId: device.id,
       // use undefined instead of null if name is not available
       name: device.name ?? undefined,
-      uuids: device.uuids,
+      uuids: [],
     };
     return bleDevice;
   }

@@ -178,6 +178,10 @@ export interface BooleanResult {
   value: boolean;
 }
 
+export interface NumberResult {
+  value: number;
+}
+
 export interface GetDevicesResult {
   devices: BleDevice[];
 }
@@ -275,4 +279,5 @@ export interface BluetoothLePlugin {
   writeDescriptor(options: WriteDescriptorOptions & TimeoutOptions): Promise<void>;
   startNotifications(options: ReadOptions): Promise<void>;
   stopNotifications(options: ReadOptions): Promise<void>;
+  getMTU(options: DeviceIdOptions): Promise<NumberResult>;
 }

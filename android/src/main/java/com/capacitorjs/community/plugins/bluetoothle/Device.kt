@@ -38,6 +38,7 @@ class Device(
     private var callbackMap = HashMap<String, ((CallbackResponse) -> Unit)>()
     private var timeoutMap = HashMap<String, Handler>()
     private var bondStateReceiver: BroadcastReceiver? = null
+    private var myMtu = 0;
 
     private val gattCallback: BluetoothGattCallback = object : BluetoothGattCallback() {
         override fun onConnectionStateChange(
@@ -80,6 +81,7 @@ class Device(
             } else {
                 Log.d(TAG, "MTU change failed: $mtu")
             }
+            myMtu = mtu
             resolve("connect", "Connected.")
         }
 
@@ -224,6 +226,10 @@ class Device(
         if (result != true) {
             reject("connect", "Starting requestMtu failed.")
         }
+    }
+
+    fun getMTU(): Int {
+        return myMtu;
     }
 
     fun createBond(callback: (CallbackResponse) -> Unit) {
@@ -430,7 +436,7 @@ class Device(
             reject(key, "Characteristic not found.")
             return
         }
-        val descriptor = characteristic?.getDescriptor(descriptorUUID)
+        val descriptor = characteristic.getDescriptor(descriptorUUID)
         if (descriptor == null) {
             reject(key, "Descriptor not found.")
             return
@@ -459,7 +465,7 @@ class Device(
             reject(key, "Characteristic not found.")
             return
         }
-        val descriptor = characteristic?.getDescriptor(descriptorUUID)
+        val descriptor = characteristic.getDescriptor(descriptorUUID)
         if (descriptor == null) {
             reject(key, "Descriptor not found.")
             return
