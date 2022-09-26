@@ -452,6 +452,15 @@ public class BluetoothLe: CAPPlugin {
             })
     }
 
+    @obj func getMTU(_ call: CAPPluginCall) {
+        guard self.getDeviceManager(call) != nil else { return }
+        guard let device = self.getDevice(call) else { return }
+        val mtu = device.getMTU()
+        call.resolve([
+            "value": value
+        ])
+    }
+
     private func getDisplayStrings() -> [String: String] {
         let configDisplayStrings = getConfigValue("displayStrings") as? [String: String] ?? [String: String]()
         var displayStrings = [String: String]()

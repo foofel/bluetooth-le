@@ -11,6 +11,7 @@ class Device: NSObject, CBPeripheralDelegate {
     private var servicesDiscovered = 0
     private var characteristicsCount = 0
     private var characteristicsDiscovered = 0
+    private var myMTU = -1
 
     init(
         _ peripheral: CBPeripheral
@@ -319,6 +320,10 @@ class Device: NSObject, CBPeripheralDelegate {
         print("Set notifications", enable)
         self.peripheral.setNotifyValue(enable, for: characteristic)
         self.setTimeout(key, "Set notifications timeout.", timeout)
+    }
+
+    func getMTU() {
+
     }
 
     func peripheral(
