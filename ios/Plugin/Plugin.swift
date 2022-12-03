@@ -452,12 +452,12 @@ public class BluetoothLe: CAPPlugin {
             })
     }
 
-    @obj func getMTU(_ call: CAPPluginCall) {
+    @objc func getMTU(_ call: CAPPluginCall) {
         guard self.getDeviceManager(call) != nil else { return }
         guard let device = self.getDevice(call) else { return }
-        val mtu = device.getMTU()
+        let mtu = device.getMTU()
         call.resolve([
-            "value": value
+            "value": mtu
         ])
     }
 

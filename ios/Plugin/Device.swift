@@ -322,8 +322,8 @@ class Device: NSObject, CBPeripheralDelegate {
         self.setTimeout(key, "Set notifications timeout.", timeout)
     }
 
-    func getMTU() {
-
+    func getMTU() -> Int {
+        return self.peripheral.maximumWriteValueLength(for: .withResponse)
     }
 
     func peripheral(
